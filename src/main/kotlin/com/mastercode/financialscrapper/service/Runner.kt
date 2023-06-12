@@ -1,5 +1,6 @@
 package com.mastercode.financialscrapper.service
 
+import com.mastercode.financialscrapper.scrapper.StatusInvestScrapper
 import com.mastercode.financialscrapper.utils.Formatter
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.ApplicationArguments
@@ -10,15 +11,11 @@ import java.util.logging.Logger
 
 @Component
 class Runner(
-
-) : ApplicationRunner {
-
     @Value("\${STOCKS:#{null}}")
-    private val stockParam: String? = null
+    private val stockParam: String? = null,
 
-    @Value("\${HOST:#{null}}")
-    private val host: String? = null
-
+    private val scrapper: StatusInvestScrapper,
+) : ApplicationRunner {
     companion object {
         private val log: Logger = Logger.getLogger(this::class.qualifiedName)
     }
@@ -27,15 +24,14 @@ class Runner(
         log.info("Starting scrapper")
 
         requireNotNull(stockParam) { "stock param cannot be null" }
-        requireNotNull(host) { "host param cannot be null" }
 
         val stockList = Formatter.commaToList(stockParam)
-        log.info("Host: $host")
         log.info("Detected: ${stockList.size} stock(s). $stockList")
 
-        val scrapper = Scrapper(host)
-        val stocks = stockList.map(scrapper::getStockInfo)
-        log.info(stocks.toString())
+        stockList
+            .map(scrapper::getStockInfo)
+            .map { it.toString() }
+            .forEach(log::info)
         log.info("Finished processing")
     }
 }
