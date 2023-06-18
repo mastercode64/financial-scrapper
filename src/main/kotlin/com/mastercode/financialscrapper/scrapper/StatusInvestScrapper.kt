@@ -6,16 +6,18 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Evaluator
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 import java.util.logging.Logger
 
 @Component
+@ConditionalOnProperty(name = ["scrapper.origin"], havingValue = "status-invest")
 class StatusInvestScrapper(
-    @Value("\${HOST:#{null}}")
+    @Value("\${status-invest.host:#{null}}")
     private val host: String? = null
-) {
-    fun getStockInfo(stockName: String): Stock {
+) : Scrapper {
+    override fun getStockInfo(stockName: String): Stock {
         requireNotNull(host) { "host param cannot be null" }
         val doc = Jsoup
             .connect(host + stockName)
@@ -66,7 +68,7 @@ class StatusInvestScrapper(
     }
 
     private fun getSegment(doc: Document): String {
-       return doc
+        return doc
             .selectFirst(Evaluator.ContainsOwnText("Segmento ANBIMA"))
             ?.nextElementSibling()
             ?.text()!!

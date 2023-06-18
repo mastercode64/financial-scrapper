@@ -1,5 +1,6 @@
 package com.mastercode.financialscrapper.service
 
+import com.mastercode.financialscrapper.scrapper.Scrapper
 import com.mastercode.financialscrapper.scrapper.StatusInvestScrapper
 import com.mastercode.financialscrapper.utils.Formatter
 import org.springframework.beans.factory.annotation.Value
@@ -11,10 +12,10 @@ import java.util.logging.Logger
 
 @Component
 class Runner(
-    @Value("\${STOCKS:#{null}}")
+    @Value("\${stocks:#{null}}")
     private val stockParam: String? = null,
 
-    private val scrapper: StatusInvestScrapper,
+    private val scrapper: Scrapper,
 ) : ApplicationRunner {
     companion object {
         private val log: Logger = Logger.getLogger(this::class.qualifiedName)
