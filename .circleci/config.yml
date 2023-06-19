@@ -15,7 +15,7 @@ jobs:
 
   code-analysis:
     docker:
-      - image: 0.49.1
+      - image: kkopper/ktlint:0.49.1
     steps:
       - checkout
       - run:
