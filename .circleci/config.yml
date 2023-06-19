@@ -6,4 +6,5 @@ orbs:
 workflows:
   default-workflow:
     jobs:
-      - maven/test
+      - maven/test:
+        dependency_plugin_version: 3.8.7
