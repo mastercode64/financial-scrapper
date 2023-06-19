@@ -1,0 +1,29 @@
+version: 2.1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/openjdk:17.0.7
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: mvn -DskipTests clean package -q
+      - run:
+          name: Test
+          command: mvn clean test
+
+  code-analysis:
+    docker:
+      - image: kkopper/ktlint:0.49.1
+    steps:
+      - checkout
+      - run:
+          name: ktlint
+          command: ktlint --relative
+
+workflows:
+  default-workflow:
+    jobs:
+      - code-analysis
+      - build-and-test
