@@ -25,4 +25,5 @@ jobs:
 workflows:
   default-workflow:
     jobs:
+      - code-analysis
       - build-and-test
