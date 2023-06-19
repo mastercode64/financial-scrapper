@@ -32,7 +32,4 @@ class FormatterTest {
         val result = Formatter.commaToList(input)
         assertThat(result).isEqualTo(listOf("A", "B", "C"))
     }
-
-
-
 }

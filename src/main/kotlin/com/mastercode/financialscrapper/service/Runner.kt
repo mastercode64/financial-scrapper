@@ -1,14 +1,12 @@
 package com.mastercode.financialscrapper.service
 
 import com.mastercode.financialscrapper.scrapper.Scrapper
-import com.mastercode.financialscrapper.scrapper.StatusInvestScrapper
 import com.mastercode.financialscrapper.utils.Formatter
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.stereotype.Component
 import java.util.logging.Logger
-
 
 @Component
 class Runner(
