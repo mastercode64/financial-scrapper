@@ -20,7 +20,7 @@ jobs:
       - checkout
       - run:
           name: ktlint
-          command: ktlint --relative -F
+          command: ktlint --relative
 
 workflows:
   default-workflow:
