@@ -1,10 +1,19 @@
 version: 2.1
 
-orbs:
-  maven: circleci/maven@1.4.1
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/openjdk:17.0.7
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: mvn -DskipTests clean package
+      - run:
+          name: Test
+          command: mvn clean test
 
 workflows:
   default-workflow:
     jobs:
-      - maven/test:
-          dependency_plugin_version: 3.6.0
+      - build-and-test
