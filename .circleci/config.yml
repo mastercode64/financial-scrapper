@@ -13,6 +13,15 @@ jobs:
           name: Test
           command: mvn clean test
 
+  code-analysis:
+    docker:
+      - image: 0.49.1
+    steps:
+      - checkout
+      - run:
+          name: ktlint
+          command: ktlint --relative
+
 workflows:
   default-workflow:
     jobs:
