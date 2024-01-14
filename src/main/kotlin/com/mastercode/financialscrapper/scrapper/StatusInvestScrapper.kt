@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
+import java.util.logging.Logger
 
 @Component
 @ConditionalOnProperty(name = ["scrapper.origin"], havingValue = "status-invest")
@@ -16,11 +17,17 @@ class StatusInvestScrapper(
     @Value("\${status-invest.host:#{null}}")
     private val host: String? = null,
 ) : Scrapper {
+
+    companion object {
+        private val log: Logger = Logger.getLogger(this::class.qualifiedName)
+    }
     override fun getStockInfo(stockName: String): Stock {
         requireNotNull(host) { "host param cannot be null" }
         val doc = Jsoup
             .connect(host + stockName)
             .get()
+
+        log.info("Processing ${stockName}")
 
         return Stock(
             name = stockName,
