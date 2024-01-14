@@ -1,3 +1,4 @@
 stocks: "HGLG11,BTLG11,MXRF11"
 status-invest.host: "https://statusinvest.com.br/fundos-imobiliarios/"
-scrapper.origin: "status-invest"
+fiis.host: "https://fiis.com.br/"
+scrapper.origin: "fiis"
