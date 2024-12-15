@@ -10,7 +10,7 @@ import java.util.logging.Logger
 
 @Component
 class Runner(
-    @Value("\${stocks:#{null}}")
+    @Value("\${STOCKS:#{null}}")
     private val stockParam: String? = null,
 
     private val scrapper: Scrapper,

@@ -12,9 +12,9 @@ import java.math.BigDecimal
 import java.util.logging.Logger
 
 @Component
-@ConditionalOnProperty(name = ["scrapper.origin"], havingValue = "fiis")
+@ConditionalOnProperty(name = ["SCRAPPER.ORIGIN"], havingValue = "fiis")
 class FiisScrapper(
-    @Value("\${fiis.host:#{null}}")
+    @Value("\${FIIS.HOST:#{null}}")
     private val host: String? = null,
 ) : Scrapper {
 
@@ -27,7 +27,6 @@ class FiisScrapper(
         val doc = Jsoup
                 .connect(host + stockName)
                 .get()
-
         log.info("Processing ${stockName}")
 
         return Stock(
