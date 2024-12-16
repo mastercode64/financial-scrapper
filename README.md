@@ -7,9 +7,10 @@
 - Maven 3.8.7
 
 ### How to run the project locally
-Navigate to the project root folder in your terminal and run
+- Insert your stocks in the application.yaml file, it supports multiple values separated by comma. Example: "AAZQ11,ALZR11,BCFF11"
+- Navigate to the project root folder in your terminal and run
 ```shell
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
 How to run all tests
