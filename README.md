@@ -1,6 +1,6 @@
 # financial-scrapper
 [![CircleCI](https://circleci.com/gh/mastercode64/financial-scrapper/tree/main.svg?style=shield)](https://circleci.com/gh/mastercode64/financial-scrapper/tree/master)
-<p>This project is used to fetch stock information using scrapper library <b>Jsoup</b></p>
+<p>This project is used to fetch stock information using scrapper library <b>Jsoup</b> and export all data to csv file</p>
 
 ### Project requirements
 - Java 17
