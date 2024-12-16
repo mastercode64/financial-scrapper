@@ -7,11 +7,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Build
-          command: mvn -DskipTests clean package -q
-      - run:
-          name: Test
-          command: mvn clean test
+          name: Build and test
+          command: mvn clean package
 
   code-analysis:
     docker:
