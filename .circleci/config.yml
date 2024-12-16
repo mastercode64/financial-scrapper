@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Build and test
-          command: mvn clean package
+          command: mvn clean package -q
 
   code-analysis:
     docker:
