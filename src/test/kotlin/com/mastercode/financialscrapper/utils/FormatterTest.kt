@@ -39,9 +39,4 @@ class FormatterTest {
         val result = Formatter.stringToList(input)
         assertThat(result).isEqualTo(emptyList<String>())
     }
-
-    @Test
-    fun test() {
-        assertThat(1).isEqualTo(1 + 1)
-    }
 }
