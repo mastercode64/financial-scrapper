@@ -27,7 +27,7 @@ class FiisScrapper(
         val doc = Jsoup
                 .connect(host + stockName)
                 .get()
-        log.info("Processing ${stockName}")
+        log.info("Processing $stockName")
 
         return Stock(
                 name = stockName,
