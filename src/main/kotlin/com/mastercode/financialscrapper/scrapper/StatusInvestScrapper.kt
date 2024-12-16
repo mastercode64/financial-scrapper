@@ -14,8 +14,8 @@ import java.util.logging.Logger
 @Component
 @ConditionalOnProperty(name = ["SCRAPPER.ORIGIN"], havingValue = "status-invest")
 class StatusInvestScrapper(
-        @Value("\${STATUS_INVEST.HOST:#{null}}")
-        private val host: String? = null,
+    @Value("\${STATUS_INVEST.HOST:#{null}}")
+    private val host: String? = null,
 ) : Scrapper {
 
     companion object {
@@ -25,59 +25,59 @@ class StatusInvestScrapper(
     override fun getStockInfo(stockName: String): Stock {
         requireNotNull(host) { "host param cannot be null" }
         val doc = Jsoup
-                .connect(host + stockName)
-                .get()
+            .connect(host + stockName)
+            .get()
 
-        log.info("Processing ${stockName}")
+        log.info("Processing $stockName")
 
         return Stock(
-                name = stockName,
-                currentValue = getCurrentValue(doc),
-                lastDividend = getLastDividend(doc),
-                dividendYield = getDividendYield(doc),
-                pvp = getPvp(doc),
-                segment = getSegment(doc),
+            name = stockName,
+            currentValue = getCurrentValue(doc),
+            lastDividend = getLastDividend(doc),
+            dividendYield = getDividendYield(doc),
+            pvp = getPvp(doc),
+            segment = getSegment(doc),
         )
     }
 
     private fun getLastDividend(doc: Document): BigDecimal {
         return doc
-                .selectFirst("div#dy-info")
-                ?.selectFirst("div.info")
-                ?.selectFirst("strong.value.d-inline-block.fs-5.fw-900")
-                ?.text()!!
-                .toCustomBigDecimal()
+            .selectFirst("div#dy-info")
+            ?.selectFirst("div.info")
+            ?.selectFirst("strong.value.d-inline-block.fs-5.fw-900")
+            ?.text()!!
+            .toCustomBigDecimal()
     }
 
     private fun getCurrentValue(doc: Document): BigDecimal {
         return doc
-                .selectFirst("div[title=\"Valor atual do ativo\"]")
-                ?.selectFirst("strong.value")
-                ?.text()!!
-                .toCustomBigDecimal()
+            .selectFirst("div[title=\"Valor atual do ativo\"]")
+            ?.selectFirst("strong.value")
+            ?.text()!!
+            .toCustomBigDecimal()
     }
 
     private fun getDividendYield(doc: Document): BigDecimal {
         return doc
-                .selectFirst("div[title=\"Dividend Yield com base nos últimos 12 meses\"]")
-                ?.selectFirst("strong.value")
-                ?.text()!!
-                .toCustomBigDecimal()
+            .selectFirst("div[title=\"Dividend Yield com base nos últimos 12 meses\"]")
+            ?.selectFirst("strong.value")
+            ?.text()!!
+            .toCustomBigDecimal()
     }
 
     private fun getPvp(doc: Document): BigDecimal {
         return doc
-                .selectFirst(Evaluator.ContainsOwnText("P/VP"))
-                ?.parent()
-                ?.selectFirst("strong.value")
-                ?.text()!!
-                .toCustomBigDecimal()
+            .selectFirst(Evaluator.ContainsOwnText("P/VP"))
+            ?.parent()
+            ?.selectFirst("strong.value")
+            ?.text()!!
+            .toCustomBigDecimal()
     }
 
     private fun getSegment(doc: Document): String {
         return doc
-                .selectFirst(Evaluator.ContainsOwnText("Segmento ANBIMA"))
-                ?.nextElementSibling()
-                ?.text()!!
+            .selectFirst(Evaluator.ContainsOwnText("Segmento ANBIMA"))
+            ?.nextElementSibling()
+            ?.text()!!
     }
 }

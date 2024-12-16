@@ -25,64 +25,64 @@ class FiisScrapper(
     override fun getStockInfo(stockName: String): Stock {
         requireNotNull(host) { "host param cannot be null" }
         val doc = Jsoup
-                .connect(host + stockName)
-                .get()
+            .connect(host + stockName)
+            .get()
         log.info("Processing $stockName")
 
         return Stock(
-                name = stockName,
-                currentValue = getCurrentValue(doc),
-                lastDividend = getLastDividend(doc),
-                dividendYield =getDividendYield(doc),
-                pvp = getPvp(doc),
-                segment = getSegment(doc),
+            name = stockName,
+            currentValue = getCurrentValue(doc),
+            lastDividend = getLastDividend(doc),
+            dividendYield = getDividendYield(doc),
+            pvp = getPvp(doc),
+            segment = getSegment(doc),
         )
     }
 
     private fun getLastDividend(doc: Document): BigDecimal {
         return doc
-                .selectFirst(Evaluator.ContainsOwnText("Último Rendimento"))
-                ?.previousElementSibling()
-                ?.text()!!
-                .toCustomBigDecimal()
+            .selectFirst(Evaluator.ContainsOwnText("Último Rendimento"))
+            ?.previousElementSibling()
+            ?.text()!!
+            .toCustomBigDecimal()
     }
 
     private fun getCurrentValue(doc: Document): BigDecimal {
         return doc
-                .selectFirst("div[class=\"item quotation\"]")
-                ?.children()
-                ?.first()
-                ?.children()
-                ?.select("span[class=\"value\"]")
-                ?.first()
-                ?.text()!!
-                .toCustomBigDecimal()
+            .selectFirst("div[class=\"item quotation\"]")
+            ?.children()
+            ?.first()
+            ?.children()
+            ?.select("span[class=\"value\"]")
+            ?.first()
+            ?.text()!!
+            .toCustomBigDecimal()
     }
 
     private fun getDividendYield(doc: Document): BigDecimal {
         return doc
-                .selectFirst(Evaluator.ContainsOwnText("Dividend Yield"))
-                ?.previousElementSibling()
-                ?.children()
-                ?.first()
-                ?.text()!!
-                .toCustomBigDecimal()
+            .selectFirst(Evaluator.ContainsOwnText("Dividend Yield"))
+            ?.previousElementSibling()
+            ?.children()
+            ?.first()
+            ?.text()!!
+            .toCustomBigDecimal()
     }
 
     private fun getPvp(doc: Document): BigDecimal {
         return doc
-                .selectFirst(Evaluator.ContainsOwnText("P/VP"))
-                ?.previousElementSibling()
-                ?.children()
-                ?.first()
-                ?.text()!!
-                .toCustomBigDecimal()
+            .selectFirst(Evaluator.ContainsOwnText("P/VP"))
+            ?.previousElementSibling()
+            ?.children()
+            ?.first()
+            ?.text()!!
+            .toCustomBigDecimal()
     }
 
     private fun getSegment(doc: Document): String {
         return doc
-                .selectFirst(Evaluator.ContainsOwnText("Segmento ANBIMA"))
-                ?.nextElementSibling()
-                ?.text()!!
+            .selectFirst(Evaluator.ContainsOwnText("Segmento ANBIMA"))
+            ?.nextElementSibling()
+            ?.text()!!
     }
 }

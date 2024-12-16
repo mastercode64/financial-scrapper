@@ -5,10 +5,10 @@ import java.math.RoundingMode
 
 fun String.toCustomBigDecimal(): BigDecimal {
     return this
-            .replace("R$", "")
-            .replace(" ", "")
-            .replace(".", "")
-            .replace(",", ".")
-            .toBigDecimal()
-            .setScale(2, RoundingMode.DOWN)
+        .replace("R$", "")
+        .replace(" ", "")
+        .replace(".", "")
+        .replace(",", ".")
+        .toBigDecimal()
+        .setScale(2, RoundingMode.DOWN)
 }
