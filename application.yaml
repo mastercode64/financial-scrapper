@@ -1,5 +1,5 @@
 REQUEST_INTERVAL_MS: 2000
-STOCKS:
+STOCKS: ""
 STATUS_INVEST.HOST: "https://statusinvest.com.br/fundos-imobiliarios/"
 FIIS.HOST: "https://fiis.com.br/"
 SCRAPPER.ORIGIN: "fiis"
