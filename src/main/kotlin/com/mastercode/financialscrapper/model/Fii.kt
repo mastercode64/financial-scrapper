@@ -2,8 +2,8 @@ package com.mastercode.financialscrapper.model
 
 import java.math.BigDecimal
 
-data class Stock(
-    val name: String? = null,
+data class Fii(
+    val name: String,
     val segment: String? = null,
     val currentValue: BigDecimal? = null,
     val lastDividend: BigDecimal? = null,

@@ -1,6 +1,6 @@
 package com.mastercode.financialscrapper.scrapper
 
-import com.mastercode.financialscrapper.model.Stock
+import com.mastercode.financialscrapper.model.Fii
 import com.mastercode.financialscrapper.utils.toCustomBigDecimal
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -22,16 +22,16 @@ class StatusInvestScrapper(
         private val log: Logger = Logger.getLogger(this::class.qualifiedName)
     }
 
-    override fun getStockInfo(stockName: String): Stock {
+    override fun getFiiInfo(fiiName: String): Fii {
         requireNotNull(host) { "host param cannot be null" }
         val doc = Jsoup
-            .connect(host + stockName)
+            .connect(host + fiiName)
             .get()
 
-        log.info("Processing $stockName")
+        log.info("Processing $fiiName")
 
-        return Stock(
-            name = stockName,
+        return Fii(
+            name = fiiName,
             currentValue = getCurrentValue(doc),
             lastDividend = getLastDividend(doc),
             dividendYield = getDividendYield(doc),

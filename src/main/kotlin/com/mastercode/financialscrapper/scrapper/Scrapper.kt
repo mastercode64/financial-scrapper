@@ -1,7 +1,7 @@
 package com.mastercode.financialscrapper.scrapper
 
-import com.mastercode.financialscrapper.model.Stock
+import com.mastercode.financialscrapper.model.Fii
 
 interface Scrapper {
-    fun getStockInfo(stockName: String): Stock
+    fun getFiiInfo(fiiName: String): Fii
 }

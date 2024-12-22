@@ -1,7 +1,7 @@
 package com.mastercode.financialscrapper.service
 
 import com.mastercode.financialscrapper.csv.CsvHelper
-import com.mastercode.financialscrapper.model.Stock
+import com.mastercode.financialscrapper.model.Fii
 import com.mastercode.financialscrapper.scrapper.Scrapper
 import com.mastercode.financialscrapper.utils.Formatter
 import org.springframework.beans.factory.annotation.Value
@@ -26,17 +26,22 @@ class Runner(
     override fun run(args: ApplicationArguments) {
         log.info("Starting scrapper")
         log.info("Using $requestIntervalMs ms interval between requests")
-        val fiisList = Formatter.stringToList(fiisParam).sorted()
-        log.info("Detected: ${fiisList.size} FIIS. $fiisList")
-        val stocks = fiisList.map(::processStock)
-        csvHelper.createFile(stocks)
+        val fiiNames = Formatter.stringToList(fiisParam).sorted()
+        log.info("Detected: ${fiiNames.size} FIIS. $fiiNames")
+        val fiis = fiiNames.map(::process)
+        csvHelper.createFile(fiis)
     }
 
-    private fun processStock(stock: String): Stock {
-        val info = scrapper.getStockInfo(stock)
-        log.info("Waiting..")
-        Thread.sleep(requestIntervalMs)
-        log.info("Finished")
-        return info
+    private fun process(fii: String): Fii {
+        try {
+            val info = scrapper.getFiiInfo(fii)
+            log.info("Waiting..")
+            Thread.sleep(requestIntervalMs)
+            log.info("Finished")
+            return info
+        } catch(ex: Exception) {
+            log.warning("Failed to fetch data for: $fii")
+            return Fii(name = fii)
+        }
     }
 }
