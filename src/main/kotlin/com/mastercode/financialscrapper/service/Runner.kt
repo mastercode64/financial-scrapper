@@ -12,8 +12,8 @@ import java.util.logging.Logger
 
 @Component
 class Runner(
-    @Value("\${STOCKS}")
-    private val stockParam: String,
+    @Value("\${FIIS}")
+    private val fiisParam: String,
     @Value("\${REQUEST_INTERVAL_MS}")
     private val requestIntervalMs: Long,
     private val scrapper: Scrapper,
@@ -26,9 +26,9 @@ class Runner(
     override fun run(args: ApplicationArguments) {
         log.info("Starting scrapper")
         log.info("Using $requestIntervalMs ms interval between requests")
-        val stockList = Formatter.stringToList(stockParam).sorted()
-        log.info("Detected: ${stockList.size} stock(s). $stockList")
-        val stocks = stockList.map(::processStock)
+        val fiisList = Formatter.stringToList(fiisParam).sorted()
+        log.info("Detected: ${fiisList.size} FIIS. $fiisList")
+        val stocks = fiisList.map(::processStock)
         csvHelper.createFile(stocks)
     }
 
