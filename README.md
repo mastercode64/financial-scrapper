@@ -7,7 +7,7 @@
 - Maven 3.8.7
 
 ### How to run the project locally
-- Insert your stocks in the application.yaml file, it supports multiple values separated by comma. Example: "AAZQ11,ALZR11,BCFF11"
+- Insert your FIIs in the application.yaml file, it supports multiple values separated by comma. Example: "AAZQ11,ALZR11,BCFF11"
 - Navigate to the project root folder in your terminal and run
 ```shell
 ./mvnw spring-boot:run
