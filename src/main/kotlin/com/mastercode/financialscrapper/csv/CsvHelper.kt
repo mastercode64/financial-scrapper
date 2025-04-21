@@ -10,7 +10,7 @@ import java.util.*
 import java.util.logging.Logger
 import kotlin.text.Charsets.UTF_8
 
-private const val CSV_SEPARATOR = '|'
+private const val CSV_SEPARATOR = ';'
 
 private val HEADER_COLUMNS = arrayOf(
     "NAME",
